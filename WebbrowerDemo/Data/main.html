@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body{
+      margin: 0px;
+      font-family: PingFangSC-Regular;
+    }
+    ul {
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .container {
+      width: 300px;
+      height: 900px;
+    }
+
+    .title {
+      height: 40px;
+    }
+
+    .left-icon {
+      width: 40px;
+      height: 40px;
+      float: left;
+      /* ??? */
+      background: linear-gradient(-135.1deg, #008FFF, #949BFF);
+    }
+
+    .main-title {
+      width: 247px;
+      float: left;
+      padding: 10px 0px 10px 13px;
+      background: #4657B5;
+      font-size: 14px;
+      color: #fff;
+      line-height: 20px;
+    }
+
+    .tabs ul {
+      margin: 0px;
+      height: 38px;
+      line-height: 38px;
+      padding: 0 20px;
+      border:1px solid #F7F7F9;
+    }
+
+    .tabs ul li {
+      float: left;
+      width: 80px;
+      text-align: center;
+      font-size: 14px;
+      color: #404048;
+      line-height: 20px;
+      padding: 10px 0 7px 0px;
+      cursor: pointer;
+      margin-right: 6px;
+    }
+
+    .tabs li.active {
+      color: #5B79FB;
+      border-bottom: 2px solid #5B79FB;
+    }
+
+    .content .prompt-helper {
+      padding: 10px 10px;
+    }
+    .prompt-helper .refernce span,
+    .prompt-helper .source span{
+      font-size: 12px;
+    }
+    .content .detail-info{
+      float: left;
+      display: none;
+      width: 100%;
+    }
+    .content .detail-info.selected{
+      display: block;
+    }
+
+    .prompt-helper .patient-score {
+      width: 280px;
+      height: 114px;
+      background: #fff;
+      box-shadow: 0px 0px 8px 0px #F0EFF4;
+      /* ???? */
+      border-radius: 2px;
+    }
+
+    .warning-title {
+      padding: 10px;
+      width: 260px;
+      background: #FFEAED;
+      border-radius: 2px;
+      font-size: 12px;
+    }
+
+    .warning-title .warning-icon {
+      display: inline-block;
+      width: 15px;
+      height: 13px;
+      background: #FF5362;
+    }
+
+    .warning-title .warning-text {
+      margin-left: 10px;
+      color: #404048;
+    }
+
+    .patient-score,
+    .AI-warning,
+    .medicine-result {
+      margin-top: 8px;
+    }
+
+    .patient-score ul li {
+      padding: 10px;
+      font-size: 0px;
+      color: #404048;
+      border-bottom: 1px solid #F8F8FA;
+    }
+
+    .patient-score ul .source {
+      border-bottom: none;
+    }
+
+    .patient-score .view {
+      float: right;
+      font-size: 10px;
+      color: #5B79FB;
+      text-decoration: none;
+    }
+    .patient-score .prompt-text{
+      color: #8E8E96;
+      margin-right: 10px;
+    }
+  </style>
+  <script type="text/javascript" src="./jquery-1.12.4.min.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $(".tabs ul>li").click(function () {
+        var idx = $(this).index();
+        $(this).addClass("active").siblings("li").removeClass("active");
+        $(".detail-info").eq(idx).addClass("selected")
+        $(".detail-info").eq(idx).addClass("selected").siblings("div").removeClass("selected");
+      })
+    })
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">
+      <div class="left-icon"></div>
+      <div class="main-title">VTE诊疗卫士</div>
+    </div>
+    <div class="tabs">
+      <ul>
+        <li class="tab-item active">提示助手</li>
+        <li class="tab-item">质控轴</li>
+        <li class="tab-item">患者信息</li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="detail-info prompt-helper selected">
+        <div class="patient-score">
+          <div class="warning-title">
+            <span class="warning-icon"></span>
+            <span class="warning-text">患者Caprini评分大于12分</span>
+          </div>
+          <ul>
+            <li class="refernce">
+              <span class="prompt-text">依据</span>
+              <span>患者病例信息提取计算Caprini评分</span>
+              <a href="#" class="view">查看＞</a>
+            </li>
+              <li class="source">
+                  <span class="prompt-text">来源</span>
+                  <span>围手术期管理规范2017-院内版</span>
+                  <a href="#" class="view">查看＞</a>
+              </li>
+              <li class="source">
+                  <span class="prompt-text">测试</span>
+                  <span>不显示当前页面</span>
+                  <a href="#" id="closevtemain" class="view">隐藏＞</a>
+              </li>
+          </ul>
+        </div>
+        <div class="AI-warning">
+          <div class="warning-title">
+            <span class="warning-icon"></span>
+            <span class="warning-text">患者AI预警曲线预后差</span>
+          </div>
+        </div>
+        <div class="medicine-result">
+          <div class="warning-title">
+            <span class="warning-icon"></span>
+            <span class="warning-text">患者利伐沙班和利福平同用，可能导致利伐 沙班抗凝失效</span>
+          </div>
+        </div>
+      </div>
+      <div class="detail-info">
+        page2
+      </div>
+      <div class="detail-info">
+        page3
+      </div>
+    </div>
+  </div>
+</body>
+</html>
