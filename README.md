@@ -37,3 +37,6 @@ winform + webbrower 使用探索
 		this.rtBox_aishow.Text = result.ToString();
 	}
 	```
+	
+## 注意点
+1. form中调用的js可以放到一个单独文件中，不是必须要放在header中	
