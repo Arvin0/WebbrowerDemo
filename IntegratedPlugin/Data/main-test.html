@@ -6,7 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script type="text/javascript" src="./jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="./main.js"></script>
+    <script type="text/javascript">
+        function showDataFromForm(userName) {
+            document.getElementById("userData").innerText = userName;
+            return "success";
+        };
+
+        function doAdd(a, b) {
+            return a + b;
+        };
+
+        function transferDataToForm() {
+            return document.getElementById("dataTransferedToForm").innerText;
+        }
+    </script>
 </head>
 <body>
     <div>

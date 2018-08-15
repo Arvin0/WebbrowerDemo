@@ -1,4 +1,4 @@
-﻿namespace WebbrowerDemo
+﻿namespace IntegratedPlugin.Form
 {
     partial class VteDetailsForm
     {
