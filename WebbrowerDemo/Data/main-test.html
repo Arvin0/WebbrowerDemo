@@ -1,17 +1,40 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
+﻿
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="./jquery-1.12.4.min.js"></script>
+    <script>
 
+        function showDataFromForm(userName) {
+            document.getElementById("userData").innerText = userName;
+            return "success";
+        };
+
+        function doAdd(a, b) {
+            return a + b;
+        };
+
+        function transferDataToForm() {
+            return document.getElementById("dataTransferedToForm").innerText;
+        }
+    </script>
+</head>
 <body>
-<div>
-    <p>这只是一个测试页面</p>
-    <button id="closevtemain">隐藏</button>
-</div>
+    <div>
+        <p>这只是一个测试页面</p>
+        <div id="dataTransferedToForm" style="background-color: blue">
+            <span>从form端获取的数据：</span>
+            <div id="userData"></div>
+        </div>
+
+        <div>
+            <button id="showDataInForm">点击在Form中显示数据</button>
+            <button id="showDetailsForm">点击弹出新的web页面</button>
+            <button id="showTransferDataInForm">点击传输数据到Form</button>
+        </div>
+    </div>
 </body>
 </html>

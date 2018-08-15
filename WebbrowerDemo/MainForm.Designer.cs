@@ -1,6 +1,6 @@
 ﻿namespace WebbrowerDemo
 {
-    partial class Main
+    partial class MainForm
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -80,15 +80,16 @@
             this.webBrowser_vteshow.Name = "webBrowser_vteshow";
             this.webBrowser_vteshow.Size = new System.Drawing.Size(420, 441);
             this.webBrowser_vteshow.TabIndex = 0;
+            this.webBrowser_vteshow.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_vteshow_DocumentCompleted);
             // 
-            // Main
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(787, 489);
             this.Controls.Add(this.pane_vteMain);
             this.Controls.Add(this.panel_ai);
-            this.Name = "Main";
+            this.Name = "MainForm";
             this.Text = "主页面";
             this.Load += new System.EventHandler(this.MainLoad);
             this.panel_ai.ResumeLayout(false);

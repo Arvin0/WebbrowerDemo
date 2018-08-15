@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="./jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            $.support.cors = true; //跨域请求设置
+
+            //获取数据
+            $("#btnGet").click(function () {
+                $.ajax({
+                    type: 'get',
+                    url: 'http://127.0.0.1:5000/api/Product',
+                    dataType: 'json',
+                    crossDomain: true,
+                    success: function (data) {
+                        var output = "Success: " + data.data;
+                        $('.container').text(output);
+                    },
+                    error: function (err) {
+                        var output = "" + err.toString() + ", " + err.statusText;
+                        $('.container').text("error: " + output);
+                    }
+                });
+            });
+
+
+            // 新增数据
+            $("#btnPost").click(function () {
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:5000/api/Product',
+                    data: JSON.stringify({
+                        "id": 6,
+                        "name": "橙子",
+                        "category": null,
+                        "categoryB": null,
+                        "description": "测试",
+                        "price": 70
+                    }),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    crossDomain: true,
+                    success: function (data) {
+                        var output = "Success: " + data.data;
+                        $('.container').text(output);
+                    },
+                    error: function (err) {
+                        var output = "" + err.toString() + ", " + err.statusText;
+                        $('.container').text("error: " + output);
+                    }
+                });
+            });
+
+            // 修改数据
+            $("#btnPut").click(function () {
+                $.ajax({
+                    type: 'put',
+                    url: 'http://localhost:5000/api/Product/8',
+                    data: JSON.stringify({
+                        "id": 8,
+                        "name": "橙子",
+                        "category": null,
+                        "categoryB": null,
+                        "description": "修改",
+                        "price": 70
+                    }),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    crossDomain: true,
+                    success: function (data) {
+                        var output = "Success: " + data.data;
+                        $('.container').text(output);
+                    },
+                    error: function (err) {
+                        var output = "" + err.toString() + ", " + err.statusText;
+                        $('.container').text("error: " + output);
+                    }
+                });
+            });
+        })
+    </script>
+</head>
+<body>
+    <button id="btnGet">
+        获取
+    </button>
+    <button id="btnPost">
+        新增
+    </button>
+    <button id="btnPut">
+        修改
+    </button>
+    <div class="container">
+    </div>
+</body>
+</html>
