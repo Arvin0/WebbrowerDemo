@@ -1,27 +1,34 @@
-﻿using System;
-using System.Windows.Forms;
-using IntegratedPlugin.Form;
+﻿using IntegratedPlugin.Common;
+using IntegratedPlugin.Interaction;
 using IntegratedPlugin.Model;
+using System;
+using System.Windows.Forms;
+using IntegratedPlugin.Config;
 
-namespace IntegratedPlugin.Entry
+namespace IntegratedPlugin.UI
 {
-    public class MainPageManagement
+    public partial class VteMain : Form
     {
-        private readonly WebBrowser _webBrowser;
+        private readonly PatientModel _patient;
 
-        public MainPageManagement(WebBrowser webBrowser)
+        public VteMain(PatientModel patient)
         {
-            _webBrowser = webBrowser;
+            _patient = patient;
+            InitializeComponent();
+        }
+
+        private void MainLoad(object sender, EventArgs e)
+        {
             Initialize();
         }
 
         #region 回调集成项目方法，传递数据
 
-        private DataTransfer _transferDataToMain = null;
+        private DataTransfer _transferDataToIntegratedSystem = null;
 
         public void SetCallBack(DataTransfer callBack)
         {
-            _transferDataToMain = callBack;
+            _transferDataToIntegratedSystem = callBack;
         }
 
         #endregion
@@ -29,18 +36,16 @@ namespace IntegratedPlugin.Entry
         private void Initialize()
         {
             // 设置webbrower 页面数据
-            var basePath = System.AppDomain.CurrentDomain.BaseDirectory;
-            var url = "Data/main-test.html";
-            this._webBrowser.Url = new Uri(basePath + url);
+            this.webBrowser_vteshow.Url = new Uri(ConfigHelp.GetPathBaseRootPath("Main"));
         }
 
-        public void BrowerDocumentCompleted(PatientModel patient)
+        private void WebBrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             // 注册相关事件
             RegisterEvents();
 
             // 将病人信息传到页面
-            TransferPatientInfoToUi(patient);
+            TransferPatientInfoToUi();
         }
 
         /// <summary>
@@ -49,7 +54,7 @@ namespace IntegratedPlugin.Entry
         private void RegisterEvents()
         {
             // 注册事件
-            var htmlDoc = this._webBrowser.Document;
+            var htmlDoc = this.webBrowser_vteshow.Document;
 
             // 点击页面按钮，弹出新的form窗体
             var btnshowDetailsForm = htmlDoc.All["showDetailsForm"];
@@ -73,7 +78,20 @@ namespace IntegratedPlugin.Entry
         /// <param name="e"></param>
         private void ShowDetailsForm(object sender, EventArgs e)
         {
-            (new VteDetailsForm()).Show();
+            string formName = "VteDetailsForm";
+            var form = FormManagement.GetForm(formName);
+            if (form == null)
+            {
+                form = new VteDetailsForm();
+                FormManagement.AddForm(formName, form);
+            }
+            else
+            {
+                form.TopMost = true;
+            }
+
+
+            form.Show();
         }
 
         /// <summary>
@@ -83,8 +101,8 @@ namespace IntegratedPlugin.Entry
         /// <param name="e"></param>
         private void TransferDataToForm(object sender, EventArgs e)
         {
-            var result = _webBrowser.Document.InvokeScript("transferDataToForm");
-            _transferDataToMain(new DataTransferModel()
+            var result = this.webBrowser_vteshow.Document.InvokeScript("transferDataToForm");
+            _transferDataToIntegratedSystem(new DataTransferModel()
             {
                 Data = result.ToString(),
                 Type = 123
@@ -95,15 +113,15 @@ namespace IntegratedPlugin.Entry
         /// 传递病人信息到页面
         /// </summary>
         /// <param name="patient"></param>
-        private void TransferPatientInfoToUi(PatientModel patient)
+        private void TransferPatientInfoToUi()
         {
-            var resultNoReturnData = _webBrowser.Document.InvokeScript("showDataFromForm", new object[] { patient.Name });
+            var resultNoReturnData =
+                webBrowser_vteshow.Document.InvokeScript("showDataFromForm", new object[] {_patient.Name});
+        }
+
+        private void VteMainFormClosing(object sender, FormClosingEventArgs e)
+        {
+            FormManagement.CloseAllForm();
         }
     }
-
-    /// <summary>
-    /// 数据传输
-    /// </summary>
-    /// <param name="data"></param>
-    public delegate void DataTransfer(DataTransferModel data);
 }

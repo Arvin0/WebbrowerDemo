@@ -1,4 +1,4 @@
-﻿namespace IntegratedPlugin.Form
+﻿namespace IntegratedPlugin.UI
 {
     partial class VteDetailsForm
     {
@@ -50,6 +50,7 @@
             this.webBrowser_detials.Name = "webBrowser_detials";
             this.webBrowser_detials.Size = new System.Drawing.Size(800, 450);
             this.webBrowser_detials.TabIndex = 0;
+            this.webBrowser_detials.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_detials_DocumentCompleted);
             // 
             // VteDetailsForm
             // 
@@ -57,9 +58,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel_details);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "VteDetailsForm";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VteDetails";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.VteDetailsFormClosed);
             this.Load += new System.EventHandler(this.VteDetailsLoad);
             this.panel_details.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -71,4 +75,6 @@
         private System.Windows.Forms.Panel panel_details;
         private System.Windows.Forms.WebBrowser webBrowser_detials;
     }
+
+    
 }
